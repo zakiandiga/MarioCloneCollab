@@ -6,7 +6,7 @@ using CommandPattern; //namespace from Doug's code
 
 public class EnemyBehaviour : MonoBehaviour
 {
-
+    //Test github
     private EnemyState enemyState = EnemyState.patrol;
     private GameObject player;
 
