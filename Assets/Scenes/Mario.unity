@@ -2538,6 +2538,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1437325309}
   - component: {fileID: 1437325308}
+  - component: {fileID: 1437325312}
+  - component: {fileID: 1437325311}
+  - component: {fileID: 1437325310}
   m_Layer: 0
   m_Name: marioenemy
   m_TagString: Untagged
@@ -2609,6 +2612,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1437325310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437325307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389e726bdfccea54e9e81343d7701984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1437325309}
+  enemyRB: {fileID: 1437325311}
+  speed: 10
+  maxPatrolSlot: 3
+  patrolSlot: 0
+  maxChaseSlot: 3
+  chaseCooldown: 3
+  patrolCooldown: 6
+  restBuffer: 3
+  timeBetweenCommand: 0.1
+--- !u!50 &1437325311
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437325307}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &1437325312
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437325307}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.8, y: 10.89}
+    newSize: {x: 8.8, y: 10.89}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.8, y: 10.89}
+  m_EdgeRadius: 0
 --- !u!1 &1469732243
 GameObject:
   m_ObjectHideFlags: 0
@@ -4074,7 +4146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8784375, y: 0.8803133}
   m_AnchorMax: {x: 0.9828334, y: 0.97863525}
-  m_AnchoredPosition: {x: 1.999939, y: -7.0000916}
+  m_AnchoredPosition: {x: 2, y: -7.000122}
   m_SizeDelta: {x: -0.000015258789, y: 15.806091}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &8470897146987589405
