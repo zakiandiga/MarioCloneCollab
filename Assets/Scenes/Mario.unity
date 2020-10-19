@@ -1498,7 +1498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1437325307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.23, y: 0.83, z: 0}
+  m_LocalPosition: {x: 7, y: 0.83, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1518,7 +1518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 1437325309}
   enemyRB: {fileID: 1437325311}
-  speed: 100
+  speed: 10
   maxPatrolSlot: 3
   patrolSlot: 0
   maxChaseSlot: 3
