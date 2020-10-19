@@ -57,7 +57,7 @@ public class EnemyBehaviour : MonoBehaviour
         moveToLocation = new moveToLocation();
         //add behavior to command list
         patrolingBehaviorCommands.Add(moveToLocation);
-        /*
+        
         patrolingBehaviorCommands.Add(moveLeft);
         patrolingBehaviorCommands.Add(moveLeft);
         patrolingBehaviorCommands.Add(moveLeft);
@@ -68,7 +68,7 @@ public class EnemyBehaviour : MonoBehaviour
         patrolingBehaviorCommands.Add(moveRight);
         patrolingBehaviorCommands.Add(moveRight);
         patrolingBehaviorCommands.Add(moveRight);
-        */
+        
 
         patrolSlot = maxPatrolSlot;
         chaseSlot = maxChaseSlot;
@@ -101,7 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
         #region Patrolling Command Lists
         //execute patrolling command list(s) here
 
-        /* version 1
+        //version 1
         int i = 0;
 
         while ( i <= patrolingBehaviorCommands.Count - 1)
@@ -113,15 +113,17 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         yield return new WaitUntil(() => i >= patrolingBehaviorCommands.Count - 1);
-        */
+        
 
         //Version 2
+        /*
         Vector2 destination = new Vector2(enemy.position.x + 5, enemy.position.y);
         moveToLocation.Execute(enemy, destination, speed, moveLeft);
         Vector3 enemyDes = destination;
 
         Debug.Log("Moving to " + enemyDes + " with speed " + speed);
         yield return new WaitUntil(() => enemy.position == enemyDes);
+        */
         #endregion
 
         //Startover
