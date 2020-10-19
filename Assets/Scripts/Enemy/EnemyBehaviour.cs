@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommandPattern; //namespace from Doug's code
-using System.Security.Cryptography;
 
 public class EnemyBehaviour : MonoBehaviour
 {
     //Test github
-    //Another test
     private EnemyState enemyState = EnemyState.patrol;
     private GameObject player;
 
@@ -74,12 +72,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         patrolSlot = maxPatrolSlot;
         chaseSlot = maxChaseSlot;
-        //EnemyPatrol();
-
-        Vector2 destination = new Vector2(enemy.position.x + 3, enemy.position.y);
-        Vector2 origin = transform.position;
-        //moveToLocation.Execute(enemy, destination, speed, moveLeft);
-        transform.position = Vector2.Lerp(origin, destination, speed);
+        EnemyPatrol();
     }
 
     //PATROL BEHAVIOUR
