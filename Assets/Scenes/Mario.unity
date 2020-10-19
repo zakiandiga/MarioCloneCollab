@@ -2302,12 +2302,20 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099988983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 23.68, y: 5.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497288481}
   m_Father: {fileID: 1178566028}
   m_RootOrder: 7
+=======
+  m_LocalPosition: {x: 7, y: 0.83, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+>>>>>>> 86f78c11647b6e2c530cd2584b236804d7668dd1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1166014459
 GameObject:
@@ -2315,6 +2323,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1166014460}
@@ -2327,6 +2336,27 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &1166014460
 Transform:
+=======
+  m_GameObject: {fileID: 1437325307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389e726bdfccea54e9e81343d7701984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1437325309}
+  enemyRB: {fileID: 1437325311}
+  speed: 10
+  maxPatrolSlot: 3
+  patrolSlot: 0
+  maxChaseSlot: 3
+  chaseCooldown: 3
+  patrolCooldown: 6
+  restBuffer: 3
+  timeBetweenCommand: 0.1
+--- !u!50 &1437325311
+Rigidbody2D:
+  serializedVersion: 4
+>>>>>>> 86f78c11647b6e2c530cd2584b236804d7668dd1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
