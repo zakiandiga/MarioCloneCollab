@@ -64,7 +64,7 @@ namespace CommandPattern
         }
 
     }
-    public class Jump : Command
+    public class jump : Command
     {
         public override void Execute(Transform boxTrans, Command command)
         {

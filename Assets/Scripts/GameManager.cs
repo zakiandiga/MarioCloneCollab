@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
-
+    public PlayerRunandJump player;
     //Game score
     private int score = 0;
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CommandPattern; //namespace from Doug's code
 
+
 public class EnemyBehaviour : MonoBehaviour
 {
     //Test github
@@ -21,7 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
         die  //Do we need this state?
     }
 
-    [SerializeField] private float speed = 10;
+    [SerializeField] private float speed = 100;
 
     [SerializeField] private float maxPatrolSlot = 3;
     [SerializeField] private float patrolSlot;
@@ -38,7 +39,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     #region NPC Command
     //List of command from command from static NPCBehaviorCommand
-    private Command moveLeft, moveRight, idle, moveToLocation;    
+    private Command moveLeft, moveRight, idle, jump, moveToLocation;    
     
     private List<Command> patrolingBehaviorCommands = new List<Command>();
     //private List<Command> chaseBehaviorCommands = new List<Command>();
@@ -51,28 +52,29 @@ public class EnemyBehaviour : MonoBehaviour
     void Start() //or Awake()? or OnEnable()?
     {
         player = GameObject.FindWithTag("Player");
+        enemyRB = GetComponent<Rigidbody2D>();
         moveLeft = new moveLeft();
         moveRight = new moveRight();
         idle = new idle();
+        jump = new jump();
         moveToLocation = new moveToLocation();
-        //add behavior to command list
-        patrolingBehaviorCommands.Add(moveToLocation);
-        
+        //add behavior to command list            
         patrolingBehaviorCommands.Add(moveLeft);
         patrolingBehaviorCommands.Add(moveLeft);
         patrolingBehaviorCommands.Add(moveLeft);
         patrolingBehaviorCommands.Add(moveLeft);
-        patrolingBehaviorCommands.Add(moveLeft);
+        patrolingBehaviorCommands.Add(moveLeft);        
         patrolingBehaviorCommands.Add(moveRight);
         patrolingBehaviorCommands.Add(moveRight);
         patrolingBehaviorCommands.Add(moveRight);
         patrolingBehaviorCommands.Add(moveRight);
         patrolingBehaviorCommands.Add(moveRight);
         
+        //chaseBehaviorCommands.Add(moveToLocation);
 
         patrolSlot = maxPatrolSlot;
         chaseSlot = maxChaseSlot;
-        EnemyPatrol();
+        Invoke ("EnemyPatrol", UnityEngine.Random.Range(0.2f, 2f)); //Cheat to make the goombas behave not in unison
     }
 
     //PATROL BEHAVIOUR
@@ -100,30 +102,17 @@ public class EnemyBehaviour : MonoBehaviour
 
         #region Patrolling Command Lists
         //execute patrolling command list(s) here
-
-        //version 1
         int i = 0;
 
-        while ( i <= patrolingBehaviorCommands.Count - 1)
+        while ( i <= patrolingBehaviorCommands.Count - 1 && enemyState == EnemyState.patrol)
         {
             patrolingBehaviorCommands[i].Execute(enemy, patrolingBehaviorCommands[i]);
             yield return new WaitForSeconds(timeBetweenCommand);
             i++;
-
         }
 
         yield return new WaitUntil(() => i >= patrolingBehaviorCommands.Count - 1);
         
-
-        //Version 2
-        /*
-        Vector2 destination = new Vector2(enemy.position.x + 5, enemy.position.y);
-        moveToLocation.Execute(enemy, destination, speed, moveLeft);
-        Vector3 enemyDes = destination;
-
-        Debug.Log("Moving to " + enemyDes + " with speed " + speed);
-        yield return new WaitUntil(() => enemy.position == enemyDes);
-        */
         #endregion
 
         //Startover
@@ -137,8 +126,10 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (col.gameObject.tag == "Player" && canChase == true)
         {
+            Debug.Log("Mario detected!");
             enemyState = EnemyState.chase;
             DoChase();
+            StopCoroutine("EnemyPatroling");
         }
     }
 
@@ -146,25 +137,30 @@ public class EnemyBehaviour : MonoBehaviour
     private void DoChase()
     {
         //Check if the enemy is tired? (add variable)
+        
         while (enemyState == EnemyState.chase)
         {
             if (chaseSlot > 0)
             {
+                Debug.Log("Start chase");
                 StartCoroutine(ChasingPlayer());
             }
 
             if (chaseSlot <= 0)
             {
+                Debug.Log("Exit from chase");
                 if(patrolSlot > 0)
                 {
                     enemyState = EnemyState.patrol;
                     EnemyPatrol();
+                    chaseSlot = maxChaseSlot;
                 }
 
                 if(patrolSlot <= 0)
                 {
                     enemyState = EnemyState.rest;
                     DoRest();
+                    chaseSlot = maxChaseSlot;
                 }
             }
         }
@@ -177,32 +173,25 @@ public class EnemyBehaviour : MonoBehaviour
 
         #region Chase Command Lists
         //execute chasing command list
-        //move to player.position!
+
+        Vector2 destination = new Vector2(player.transform.position.x, player.transform.position.y);
+        
+        Vector3 enemyDes = destination;
+        moveToLocation = new moveToLocation();
+        moveToLocation.Execute(enemy, destination, speed, moveLeft);
+
+        Debug.Log("Moving from " + enemy.position + "to " + enemyDes + " with speed " + speed + " chase slot = " + chaseSlot);
+        yield return new WaitUntil(() => enemy.position == enemyDes);
 
         //yield return from the last action on the list
         #endregion
 
-        yield return new WaitForSeconds(3f); //temp
+        //yield return new WaitForSeconds(3f); //temp
 
         StopCoroutine(ChasingPlayer()); //Not sure if we need to stop coroutine here
 
         DoChase(); //Start over the chase 
     }
-
-    /* dont need this anymore for exiting chase state?
-    void OnTriggerExit2D(Collision col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            //check chase buffer
-            //if chase buffer = 0, change state to patrol, if patrol slot not cooldown, change state to rest
-            if(canChase)
-            {
-
-            }
-        }
-    }
-    */
 
 
     //REST STATE//
@@ -210,6 +199,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         StartCoroutine("EnemyResting");
         Debug.Log("Start rest");
+        jump.Execute(enemy, enemyRB, jump);
     }
 
     IEnumerator EnemyResting()
@@ -241,54 +231,6 @@ public class EnemyBehaviour : MonoBehaviour
             OnDie(this);
         }
     }
-
-
-
-    void Update()
-    {
-        /*
-        switch (enemyState) //Should we use switch??
-        {
-            case enemytates.patrol:
-                //repeating behavior       
-
-                //state change conditions:
-                if (playerNotified) //CONDITION THAT CHANGE TO CHASE
-                {
-                    enemyState = EnemyState.chase;
-                }
-
-                else if () //SWITCH TO REST
-
-                    break;
-
-            case enemyState.chase:
-                //repeating behavior
-
-                //state change conditions:
-                if () // CONDITION THAT CHANGE STATE BACK TO PATROL
-                {
-                    enemyState = EnemyState.patrol;
-                }
-                break;
-
-            case PlayerStates.rest:
-                //repeating behavior
-
-                if () //CONDITION THAT CHANGE STATE TO PATROL
-                {
-                    enemyState = EnemyState.patrol;
-                }
-                else if () //CONDITION THAT CHANGE STATE TO CHASE
-                {
-                    enemyState = EnemyState.chase;
-                }
-                break;
-
-            default:
-                break;
-        }
-        */
-    }
+    
 
 }
