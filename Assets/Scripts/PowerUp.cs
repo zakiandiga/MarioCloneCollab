@@ -11,6 +11,11 @@ public class PowerUp : CollectableItem
     private int health = 1;
     public int Health { get => health; }
 
+    protected override void SetType()
+    {
+        objType = ObjectType.PowerUp;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")

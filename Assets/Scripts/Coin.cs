@@ -14,6 +14,10 @@ public class Coin : CollectableItem
 
     public static event Action<Coin> OnCoinCollected;
 
+    protected override void SetType()
+    {
+        objType = ObjectType.Coin;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
