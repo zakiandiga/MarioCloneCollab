@@ -86,5 +86,6 @@ public class ObjectPooler : MonoBehaviour
 public enum ObjectType
 {
     Coin,
-    PowerUp
+    PowerUp,
+    NoType
 }

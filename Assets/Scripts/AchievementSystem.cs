@@ -17,6 +17,7 @@ public class AchievementSystem : MonoBehaviour
 
     private void CoinCollectedAchievement(Coin coin)
     {
+        coin.transform.parent.GetComponent<SpawnPoint>().actived = false;
         ObjectPooler._instance.ReturnToPool(ObjectType.Coin,coin.gameObject);
         GameManager._instance.Score += coin.Point;
         //ObjectSpawner._instance.OutOffSpawnList(coin.gameObject);
@@ -26,7 +27,6 @@ public class AchievementSystem : MonoBehaviour
     {
         speedboost.gameObject.SetActive(false);        
         GameManager._instance.player.speed = 12f;
-        //speed = 8.37f;
         image.enabled = true;
         StartCoroutine(EndSpeedBoost());
 
@@ -42,6 +42,7 @@ public class AchievementSystem : MonoBehaviour
 
     private void PowerUpCollectedAchievement(PowerUp powerUp)
     {
+        powerUp.transform.parent.GetComponent<SpawnPoint>().actived = false;
         ObjectPooler._instance.ReturnToPool(ObjectType.PowerUp, powerUp.gameObject);
         GameManager._instance.PlayerHealth += powerUp.Health;
     }

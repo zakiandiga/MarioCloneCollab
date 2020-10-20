@@ -6,8 +6,11 @@ using System;
 public abstract class CollectableItem : MonoBehaviour
 {
     //public static event Action<PowerUp> OnCollected;
-    void Collect()
-    {
+    public ObjectType objType;
 
+    protected virtual void SetType()
+    {
+        this.objType = ObjectType.NoType;
     }
+
 }
